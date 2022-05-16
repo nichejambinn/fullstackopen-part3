@@ -62,18 +62,31 @@ const generateId = () => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
+  const errorObj = {
+    error: ""
+  }
 
+  // handle bad requests
   if (!body.name) {
-    return response.status(400).json(
-      {
-        error: 'name missing'
-      }
-    )
+    errorObj.error = "name missing"
+  } else if (!body.number) {
+    errorObj.error = "number missing"
+  } else {
+    const nameToAdd = body.name.trim()
+    const person = persons.find(p => p.name.toLowerCase() === nameToAdd.toLowerCase())
+
+    if (person) {
+      errorObj.error = "name must be unique"
+    }
+  }
+
+  if (errorObj.error != "") {
+    return response.status(400).json(errorObj)
   }
 
   const person = {
-    name: body.name,
-    number: body.number,
+    name: body.name.trim(),
+    number: body.number.trim(),
     id: generateId()
   }
 

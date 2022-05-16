@@ -5,3 +5,26 @@ Content-Type: application/json
     "name": "Martin Fowler",
     "number": "915-178-4593"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Uncle Bob"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "  ADA LovelAcE   ",
+    "number": "555-555-5555"
+}
